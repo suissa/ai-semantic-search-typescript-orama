@@ -85,7 +85,7 @@ export const useOrama = () => {
       setSearchBoxConfig({
         basic: {
           clientInstance: oramaInstance,
-          disableChat: !endpoint?.url
+          facetProperty: 'category',
         },
         custom: searchBoxCustomConfig
       })
