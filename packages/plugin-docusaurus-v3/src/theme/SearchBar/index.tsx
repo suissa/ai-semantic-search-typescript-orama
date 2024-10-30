@@ -8,23 +8,26 @@ import { OramaSearchBox, OramaSearchButton } from "@orama/react-components"
 import { useOrama, PluginData } from "./useOrama"
 
 export function OramaSearchNoDocs() {
-	const { searchBoxConfig, searchBtnConfig, colorMode } = useOrama()
+	const { searchBoxConfig, searchBtnConfig: {text, ...searchBtnConfigRest}, colorMode } = useOrama()
 
 	return (
 		<div>
-			<OramaSearchButton {...searchBtnConfig} colorScheme={colorMode} className="DocSearch-Button" />
 			{searchBoxConfig.basic && (
-				<OramaSearchBox
-					{...searchBoxConfig.basic}
-					{...searchBoxConfig.custom}
-					colorScheme={colorMode}
-					searchParams={{
-						where: {
-							version: { eq: "current" }
-						}
-					}}
-					facetProperty="category"
-				/>
+				<>
+					<OramaSearchButton colorScheme={colorMode} className="DocSearch-Button" {...searchBtnConfigRest}>
+						{text || "Search"}
+					</OramaSearchButton>
+					<OramaSearchBox
+						{...searchBoxConfig.basic}
+						{...searchBoxConfig.custom}
+						colorScheme={colorMode}
+						searchParams={{
+							where: {
+								version: { eq: "current" }
+							}
+						}}
+					/>
+				</>
 			)}
 		</div>
 	)
@@ -35,7 +38,7 @@ export function OramaSearchWithDocs({ pluginId }: { pluginId: string }) {
 	const activeVersion = useActiveVersion(pluginId)
 	const { preferredVersion } = useDocsPreferredVersion(pluginId)
 	const currentVersion = activeVersion || preferredVersion || versions[0]
-	const { searchBoxConfig, searchBtnConfig, colorMode } = useOrama()
+	const { searchBoxConfig, searchBtnConfig: { text, ...searchBtnConfigRest }, colorMode } = useOrama()
 
 	const searchParams = {
 		...(currentVersion && {
@@ -47,14 +50,15 @@ export function OramaSearchWithDocs({ pluginId }: { pluginId: string }) {
 
 	return (
 		<div>
-			<OramaSearchButton {...searchBtnConfig} colorScheme={colorMode} className="DocSearch-Button" />
+			<OramaSearchButton colorScheme={colorMode} className="DocSearch-Button" {...searchBtnConfigRest}>
+				{text || "Search"}
+			</OramaSearchButton>
 			{searchBoxConfig.basic && (
 				<OramaSearchBox
 					{...searchBoxConfig.basic}
 					{...searchBoxConfig.custom}
 					colorScheme={colorMode}
 					searchParams={searchParams}
-					facetProperty="category"
 				/>
 			)}
 		</div>
