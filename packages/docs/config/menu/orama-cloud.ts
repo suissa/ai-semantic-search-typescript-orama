@@ -61,7 +61,15 @@ const oramaCloudMenu = [
           {
             label: 'Hybrid search',
             link: '/cloud/performing-search/hybrid-search'
-          }
+          },
+          {
+            label: "Multi-index search",
+            link: "/cloud/performing-search/multi-index-search.html",
+            badge: {
+              text: "New",
+              variant: "success"
+            }
+          },
         ]
       },
       {
