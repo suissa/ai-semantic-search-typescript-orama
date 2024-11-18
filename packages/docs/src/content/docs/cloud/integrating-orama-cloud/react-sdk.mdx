@@ -12,12 +12,12 @@ Orama Cloud provides an official SDK to help you integrate your indexes into you
 
 You can install the SDK using `npm`, `yarn`, `pnpm`, `bun`, or any other package manager of your choice:
 
-<Install pkg="@oramacloud/client" />
+<Install pkg="@oramacloud/react-client" />
 
 When developing using Deno, you can import the SDK using the `npm` namespace:
 
 ```typescript copy
-import { OramaCloud } from "npm:@oramacloud/client/react";
+import { OramaCloud } from "npm:@oramacloud/react-client";
 ```
 
 This SDK aims to be 100% compatible with every JavaScript environment, including Node.js, Deno, Bun, and browsers.
@@ -32,7 +32,7 @@ As a first step please add the Provider component at the top of your React tree:
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import { OramaCloud } from "@oramacloud/client/react";
+import { OramaCloud } from "@oramacloud/react-client";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <OramaCloud endpoint="<your-endpoint>" apiKey="<your-apikey>">
@@ -61,7 +61,7 @@ The SDK provides a hook to interact with the Orama Cloud API. Here is a list of 
 The react hooks wraps the [open source search method](/open-source/usage/search/introduction), maintaining backward compatibility with the Open Source API.
 
 ```tsx copy
-import { useSearch } from "@oramacloud/client/react";
+import { useSearch } from "@oramacloud/react-client";
 
 function Search() {
   const { results, error } = useSearch({
@@ -86,7 +86,7 @@ function Search() {
 You can perform a vector search using the `useSearch` hook by changing the mode, for example:
 
 ```tsx copy
-import { useSearch } from "@oramacloud/client/react";
+import { useSearch } from "@oramacloud/react-client";
 
 function Search() {
   const { results, error } = useSearch({

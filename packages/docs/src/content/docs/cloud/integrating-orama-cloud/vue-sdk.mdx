@@ -12,6 +12,8 @@ Orama Cloud provides an Official SDK to help you integrate your indexes into you
 You can install the SDK using `npm`, `yarn`, `pnpm` or any other package manager of your choice:
 
 <Install pkg="@oramacloud/client" />
+and
+<Install pkg="@oramacloud/client-vue" />
 
 ## Usage
 
@@ -50,7 +52,7 @@ The vue composable wraps the [open source search method](/open-source/usage/sear
 ```vue
 <script setup>
 import { client } from "./orama";
-import { useSearch } from "@oramacloud/client/vue";
+import { useSearch } from "@oramacloud/vue-client";
 
 const { results } = useSearch({
   client,
@@ -72,7 +74,7 @@ You can perform a vector search using the `useSearch` hook by changing the mode,
 ```vue
 <script setup>
 import { client } from "./orama";
-import { useSearch } from "@oramacloud/client/vue";
+import { useSearch } from "@oramacloud/vue-client";
 
 const { results } = useSearch({
   client,
