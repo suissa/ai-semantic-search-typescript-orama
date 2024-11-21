@@ -12,6 +12,10 @@ export type SearchConfig = {
   debounce?: number
 }
 
+function isOramaClient(client: any): client is OramaClient {
+  return client && typeof client === 'object' && 'api_key' in client && 'endpoint' in client;
+}
+
 export class Switch<T = OramaSwitchClient> {
   private invalidClientError = 'Invalid client. Expected either an OramaClient or an Orama OSS database.'
   client: OramaSwitchClient
@@ -22,7 +26,7 @@ export class Switch<T = OramaSwitchClient> {
   constructor(client: OramaSwitchClient) {
     this.client = client
 
-    if (client instanceof OramaClient) {
+    if (isOramaClient(client)) {
       this.clientType = 'cloud'
       this.isCloud = true
     } else if (typeof client === 'object' && 'id' in client && 'tokenizer' in client) {
@@ -44,10 +48,10 @@ export class Switch<T = OramaSwitchClient> {
     }
   }
 
-  createAnswerSession(params: T extends OramaClient ? CloudAnswerSessionConfig : OSSAnswerSessionConfig): T extends OramaClient ? CloudAnswerSession : OSSAnswerSession {
+  createAnswerSession(params: T extends OramaClient ? CloudAnswerSessionConfig : OSSAnswerSessionConfig): T extends OramaClient ? CloudAnswerSession<true> : OSSAnswerSession {
     if (this.isCloud) {
       const p = params as CloudAnswerSessionConfig
-      return (this.client as OramaClient).createAnswerSession(p) as unknown as T extends OramaClient ? CloudAnswerSession : OSSAnswerSession
+      return (this.client as OramaClient).createAnswerSession(p) as unknown as T extends OramaClient ? CloudAnswerSession<true> : OSSAnswerSession
     }
 
     if (this.isOSS) {
@@ -58,7 +62,7 @@ export class Switch<T = OramaSwitchClient> {
           events: p.events,
           userContext: p.userContext,
           systemPrompt: p.systemPrompt,
-      }) as unknown as T extends OramaClient ? CloudAnswerSession : OSSAnswerSession
+      }) as unknown as T extends OramaClient ? CloudAnswerSession<true> : OSSAnswerSession
     }
 
     throw new Error(this.invalidClientError)
