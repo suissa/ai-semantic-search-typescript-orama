@@ -752,7 +752,7 @@ importers:
         version: link:../plugin-data-persistence
       '@orama/searchbox':
         specifier: 1.0.0-beta.13
-        version: 1.0.0-beta.13(@orama/highlight@0.1.6)(@orama/orama@packages+orama)(@oramacloud/client@1.3.16(encoding@0.1.13)(typescript@5.6.3)(zod@3.23.8))(@preact/signals-core@1.8.0)(@preact/signals@1.3.0(preact@10.24.3))(postcss@8.4.47)(preact-custom-element@4.3.0(preact@10.24.3))(preact@10.24.3)
+        version: 1.0.0-beta.13(@orama/highlight@0.1.6)(@orama/orama@packages+orama)(@oramacloud/client@2.1.1)(@preact/signals-core@1.8.0)(@preact/signals@1.3.0(preact@10.24.3))(postcss@8.4.47)(preact-custom-element@4.3.0(preact@10.24.3))(preact@10.24.3)
       '@vitejs/plugin-vue':
         specifier: ^4.5.1
         version: 4.6.2(vite@4.5.5(@types/node@22.7.5)(terser@5.34.1))(vue@3.5.12(typescript@5.6.3))
@@ -812,8 +812,8 @@ importers:
         specifier: workspace:*
         version: link:../orama
       '@oramacloud/client':
-        specifier: 1.3.15
-        version: 1.3.15(encoding@0.1.13)(typescript@5.6.3)(zod@3.23.8)
+        specifier: ^2.1.1
+        version: 2.1.1
     devDependencies:
       '@orama/plugin-secure-proxy':
         specifier: workspace:*
@@ -3403,11 +3403,18 @@ packages:
   '@orama/crawly@0.0.6':
     resolution: {integrity: sha512-8u0pv9IvKrYaO9gbOe7hcZ757Kd6y6qqyN5uPXXPJmAk0nXc2p172YsZEp8NzanZgvcH6G6t1XsG74t7Mptchw==}
 
+  '@orama/cuid2@2.2.3':
+    resolution: {integrity: sha512-Lcak3chblMejdlSHgYU2lS2cdOhDpU6vkfIJH4m+YKvqQyLqs1bB8+w6NT1MG5bO12NUK2GFc34Mn2xshMIQ1g==}
+
   '@orama/highlight@0.1.6':
     resolution: {integrity: sha512-6Va8paStIoVy5algYDQu1hU0NUCkcrBx7FSt+0Lllp4d2VA1aVi6ACQ7xoINYls8sDZqg6vXf2lj4YDlVamBtw==}
 
   '@orama/orama@2.1.1':
     resolution: {integrity: sha512-euTV/2kya290SNkl5m8e/H1na8iDygk74nNtl4E0YZNyYIrEMwE1JwamoroMKGZw2Uz+in/8gH3m1+2YfP0j1w==}
+    engines: {node: '>= 16.0.0'}
+
+  '@orama/orama@3.0.1':
+    resolution: {integrity: sha512-18hl0MiCLmumODHjrLzSdTb1Ny3Dh8tn44jwgx0LksCdvVAsr3jQvfr+hwrE7bVkap0wPELb/dnuJjvupKxheQ==}
     engines: {node: '>= 16.0.0'}
 
   '@orama/plugin-analytics@2.1.1':
@@ -3441,6 +3448,9 @@ packages:
 
   '@oramacloud/client@1.3.16':
     resolution: {integrity: sha512-WOc7hcg40x5OZb1rPiH/qSLeDb1hzCy4jVIV1wSfwni/ZQ4cHRyDKuMda5iyjF3A+ZgQfH1P5Oqi03cZSZw98g==}
+
+  '@oramacloud/client@2.1.1':
+    resolution: {integrity: sha512-DWLe5+k4defjpe2ZLDSe0KhcFIPXehRrAyJLkhg/RP9tyWRd87Q2XFwFP2fc4u3eAukcIE5G5D0e4p6D+gtWbQ==}
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
@@ -16742,11 +16752,17 @@ snapshots:
       cheerio: 1.0.0-rc.12
       slugify: 1.6.6
 
+  '@orama/cuid2@2.2.3':
+    dependencies:
+      '@noble/hashes': 1.5.0
+
   '@orama/highlight@0.1.6':
     dependencies:
       '@orama/orama': 2.1.1
 
   '@orama/orama@2.1.1': {}
+
+  '@orama/orama@3.0.1': {}
 
   '@orama/plugin-analytics@2.1.1':
     dependencies:
@@ -16772,12 +16788,12 @@ snapshots:
       - typescript
       - zod
 
-  '@orama/searchbox@1.0.0-beta.13(@orama/highlight@0.1.6)(@orama/orama@packages+orama)(@oramacloud/client@1.3.16(encoding@0.1.13)(typescript@5.6.3)(zod@3.23.8))(@preact/signals-core@1.8.0)(@preact/signals@1.3.0(preact@10.24.3))(postcss@8.4.47)(preact-custom-element@4.3.0(preact@10.24.3))(preact@10.24.3)':
+  '@orama/searchbox@1.0.0-beta.13(@orama/highlight@0.1.6)(@orama/orama@packages+orama)(@oramacloud/client@2.1.1)(@preact/signals-core@1.8.0)(@preact/signals@1.3.0(preact@10.24.3))(postcss@8.4.47)(preact-custom-element@4.3.0(preact@10.24.3))(preact@10.24.3)':
     dependencies:
       '@orama/highlight': 0.1.6
       '@orama/orama': link:packages/orama
       '@orama/plugin-analytics': 2.1.1
-      '@oramacloud/client': 1.3.16(encoding@0.1.13)(typescript@5.6.3)(zod@3.23.8)
+      '@oramacloud/client': 2.1.1
       '@preact/signals': 1.3.0(preact@10.24.3)
       '@preact/signals-core': 1.8.0
       object-to-css-variables: 0.2.1
@@ -16845,6 +16861,12 @@ snapshots:
       - encoding
       - typescript
       - zod
+
+  '@oramacloud/client@2.1.1':
+    dependencies:
+      '@orama/cuid2': 2.2.3
+      '@orama/orama': 3.0.1
+      lodash: 4.17.21
 
   '@oslojs/encoding@1.1.0': {}
 
