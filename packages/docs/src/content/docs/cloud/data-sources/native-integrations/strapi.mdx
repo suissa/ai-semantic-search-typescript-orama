@@ -134,3 +134,101 @@ This option is useful when you want to keep your index up-to-date with your Stra
 ## Integrating into your app
 
 <IntegratingIntoYourApp />
+
+---
+## Advanced usage
+
+### Documents transformation
+The scope of the transformation is to modify the document before it is sent to the Orama Cloud API. This can be useful to add, remove or modify fields in the document.
+A common use case is to refactor a collection _(not supported yet by Orama Cloud)_ into a flat structure.\
+Here is an example of how to transform a collection of objects to a flat structure:
+
+<Aside type="note">
+  This will override any setting you have in the Strapi plugin admin panel.\
+  You'll be warned on the admin panel if you have a transformer function set.
+</Aside>
+
+#### Pre-requisites
+- An Orama Cloud index.
+- A Strapi collection already created, with relations.
+
+Example document:
+```json
+{
+  "id": 1,
+  "owner": "John",
+  "cars": [
+    {
+      "brand": "Toyota",
+      "model": "Corolla"
+    },
+    {
+      "brand": "Ford",
+      "model": "Focus"
+    }
+  ]
+}
+```
+You can insert your transformer function directly inside the plugin configuration under `config/plugins.js` file:
+
+<Aside type="caution">
+  Remember that both `schema` and `transformer` are mandatory for a correct configuration. If you miss one of them, the plugin will not work as expected.\
+  Also remember that the `transformer` function must return a transformed document that follows the schema you defined.\
+  All non-matching fields will included in the documents, but ignored as search field.
+</Aside>
+
+```js
+module.exports = ({ env }) => ({
+  "orama-cloud": {
+    config: {
+      privateApiKey: env("ORAMA_PRIVATE_API_KEY"),
+      collectionSettings: {
+        "<your_collection_index_id>": {
+          /* Mandatory */
+          /* Define the schema of your document */
+          schema: {
+            id: { type: "integer" },
+            owner: { type: "string" },
+            cars: {
+              brands: { type: "string" },
+              models: { type: "string" },
+            }
+          },
+          /* Mandatory */
+          /* Define the transformer function */
+          transformer: entry => {
+            return {
+              ...entry,
+              owner: "Overriding owner",
+              cars: {
+                source: entry.cars,
+                ...entry.cars.reduce((acc, curr) => {
+                  acc.brands.push(curr.brand);
+                  acc.models.push(curr.model);
+                  return acc;
+                }, {
+                  brands: [],
+                  models: []
+                })
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+})
+```
+
+In this way your cars will be transformed to:
+```json
+{
+  "id": 1,
+  "owner": "Overriding owner",
+  "cars": {
+    "brands": ["Toyota", "Ford"],
+    "models": ["Corolla", "Focus"]
+  }
+}
+```
+And this will make you car brands and models searchable.
