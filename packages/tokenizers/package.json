@@ -1,6 +1,6 @@
 {
   "name": "@orama/tokenizers",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "type": "module",
   "description": "Additional tokenizers for Orama",
   "sideEffects": false,
